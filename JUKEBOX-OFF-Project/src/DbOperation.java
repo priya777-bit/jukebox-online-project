@@ -16,19 +16,21 @@ public class DbOperation
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox", "root", "root");
             System.out.println("Connection Success..");
 
-            String query = "select * from artist";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            String query = "select * from artist where artist_name=? and artist_gender=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,artist_name);
+            pst.setString(2,artist_gender);
             ResultSet rs = pst.executeQuery();
 
             if(rs.next())
             {
-                 rs = pst.getGeneratedKeys();
                  artist_id = rs.getInt(1);
                  return artist_id;
             }
             else
             {
-                artist_id = addArtistId(artist_name,artist_gender)
+                artist_id = addArtistId(artist_name,artist_gender);
+                return artist_id;
             }
 
         }
@@ -70,25 +72,28 @@ public class DbOperation
     public int getAlbumId(String album_name,Date album_release_date)
     {
         int album_id=0;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered..");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox", "root", "root");
             System.out.println("Connection Success..");
 
-            String query = "select * from album";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            String query = "select * from album where album_name=? and album_release_date=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,album_name);
+            pst.setDate(2,new java.sql.Date(album_release_date.getTime()));
             ResultSet rs = pst.executeQuery();
 
             if(rs.next())
             {
-                rs=pst.getGeneratedKeys();
                 album_id=rs.getInt(1);
                 return album_id;
             }
             else
             {
                 album_id=addAlbumId(album_name,album_release_date);
+                return album_id;
             }
         }
         catch (Exception e)
@@ -136,18 +141,19 @@ public class DbOperation
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox", "root", "root");
             System.out.println("Connection Success..");
 
-            String query = "select * from genre";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            String query = "select * from genre where genre_name=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,genre_name);
             ResultSet rs = pst.executeQuery();
             if(rs.next())
             {
-                rs=pst.getGeneratedKeys();
                 genre_id=rs.getInt(1);
                 return genre_id;
             }
             else
             {
                 genre_id=addGenreId(genre_name);
+                return genre_id;
             }
         }
         catch (Exception e)
