@@ -52,4 +52,6 @@ select g.genre_name , al.album_name , al.album_release_date
 , art.artist_name , art.artist_gender , s.song_name , s.song_duration from genre as g
 , album as al , artist as art , song as s;
 
+-- Show View ..
 
+select * from gen_alb_art_song;

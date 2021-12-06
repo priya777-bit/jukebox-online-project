@@ -13,6 +13,21 @@ public class Song
     private String song_name;
     private String song_duration;
 
+    //Constructor
+    public Song()
+    {
+
+    }
+    public Song(String genre_name, String album_name, Date album_release_date, String artist_name, String artist_gender, String song_name, String song_duration) {
+        this.genre_name = genre_name;
+        this.album_name = album_name;
+        this.album_release_date = album_release_date;
+        this.artist_name = artist_name;
+        this.artist_gender = artist_gender;
+        this.song_name = song_name;
+        this.song_duration = song_duration;
+    }
+
     //Getter And Setter
     public String getGenre_name() {
         return genre_name;

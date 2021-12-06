@@ -4,7 +4,11 @@ import static java.sql.Statement.*;
 
 public class DbOperation
 {
-    Song song = new Song();
+    Song song;
+
+    public DbOperation() {
+        song = new Song();
+    }
 
     public int getArtistId(String artist_name,String artist_gender)
     {
@@ -52,7 +56,7 @@ public class DbOperation
             System.out.println("Connection Success..");
 
             String query = "insert into artist(artist_name,artist_gender) values(?,?)";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, artist_name);
             pst.setString(2,artist_gender);
             if((pst.executeUpdate())==1)
@@ -115,7 +119,7 @@ public class DbOperation
             System.out.println("Connection Success..");
 
             String query = "insert into album(album_name,album_release_date) values(?,?)";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             pst.setString(1,album_name);
             pst.setDate(2,new java.sql.Date(album_release_date.getTime()));
             if((pst.executeUpdate())==1)
@@ -176,7 +180,7 @@ public class DbOperation
             System.out.println("Connection Success..");
 
             String query = "insert into genre(genre_name) values(?)";
-            PreparedStatement pst = con.prepareStatement(query, RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1,genre_name);
             if((pst.executeUpdate())==1)
             {
@@ -198,6 +202,7 @@ public class DbOperation
 
         try
         {
+
             artist_id = getArtistId(song.getArtist_name(),song.getArtist_gender());
 
             album_id = getAlbumId(song.getAlbum_name(),new java.sql.Date(song.getAlbum_release_date().getTime()));
@@ -216,6 +221,8 @@ public class DbOperation
             pst.setInt(3,artist_id);
             pst.setInt(4,album_id);
             pst.setInt(5,genre_id);
+
+            int res = pst.executeUpdate();
 
             if((pst.executeUpdate()==1))
             {
