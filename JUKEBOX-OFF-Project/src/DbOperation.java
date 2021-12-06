@@ -58,8 +58,9 @@ public class DbOperation
             if((pst.executeUpdate())==1)
             {
                 ResultSet rs = pst.getGeneratedKeys();
-                artist_id=rs.getInt(1);
-                return artist_id;
+                if(rs.next())
+                {artist_id=rs.getInt(1);
+                return artist_id;}
             }
         }
         catch (Exception e)
@@ -120,8 +121,9 @@ public class DbOperation
             if((pst.executeUpdate())==1)
             {
                 ResultSet rs = pst.getGeneratedKeys();
-                album_id = rs.getInt(1);
-                return album_id;
+                if(rs.next())
+                {album_id = rs.getInt(1);
+                return album_id;}
             }
         }
         catch (Exception e)
@@ -179,8 +181,9 @@ public class DbOperation
             if((pst.executeUpdate())==1)
             {
                 ResultSet rs = pst.getGeneratedKeys();
-                genre_id = rs.getInt(1);
-                return genre_id;
+                if(rs.next())
+                {genre_id = rs.getInt(1);
+                return genre_id;}
             }
         }
         catch (Exception e)
@@ -193,14 +196,14 @@ public class DbOperation
     {
         boolean result = false;
 
-         artist_id = getArtistId(song.getArtist_name(),song.getArtist_gender());
-
-         album_id = getAlbumId(song.getAlbum_name(),new java.sql.Date(song.getAlbum_release_date().getTime()));
-
-         genre_id = getGenreId(song.getGenre_name());
-
         try
         {
+            artist_id = getArtistId(song.getArtist_name(),song.getArtist_gender());
+
+            album_id = getAlbumId(song.getAlbum_name(),new java.sql.Date(song.getAlbum_release_date().getTime()));
+
+            genre_id = getGenreId(song.getGenre_name());
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered..");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
@@ -214,9 +217,7 @@ public class DbOperation
             pst.setInt(4,album_id);
             pst.setInt(5,genre_id);
 
-            int result2 = pst.executeUpdate();
-
-            if(result2==1)
+            if((pst.executeUpdate()==1))
             {
                 result = true;
             }
