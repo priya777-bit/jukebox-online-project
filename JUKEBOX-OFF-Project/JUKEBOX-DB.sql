@@ -53,9 +53,9 @@ create table song
 
 -- Creating View For All Tables ..
 
-create view gen_alb_art_song
-select g.genre_name,al.album_name,al.album_release_date
-,at.artist_name,at.artist_gender,s.song_name,s.song_duration from genre 
-, album  , artist , song as g , al , at , s;
+create view gen_alb_art_song as
+select g.genre_name , al.album_name , al.album_release_date
+, art.artist_name , art.artist_gender , s.song_name , s.song_duration from genre as g
+, album as al , artist as art , song as s;
 
 
