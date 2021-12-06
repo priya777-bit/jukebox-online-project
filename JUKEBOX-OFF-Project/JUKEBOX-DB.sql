@@ -11,19 +11,15 @@ create table genre
     genre_name char(50)
 );
 
-drop table genre;
-
 -- Creating Table Album ..
 
 create table album
 (
 	album_id int primary key auto_increment,
     album_name char(50),
-    album_release_date date
+    album_release_date date default (current_date())
 
 );
-
-drop table album;
 
 -- Creating Artist Table ..
 
@@ -33,8 +29,6 @@ create table artist
     artist_name char(50),
     artist_gender char(20)
 );
-
-drop table artist;
 
 -- Creating Table Song ..
 
