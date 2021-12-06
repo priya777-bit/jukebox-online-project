@@ -30,6 +30,7 @@ public class ArrayListSong
 
             String query = "select * from gen_alb_art_song where genre_name=?";
             PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,song.getGenre_name());
             ResultSet rs = pst.executeQuery();
 
             while(rs.next())
@@ -56,6 +57,7 @@ public class ArrayListSong
 
             String query = "select * from gen_alb_art_song where album_name=?";
             PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,song.getAlbum_name());
             ResultSet rs = pst.executeQuery();
             while(rs.next())
             {
@@ -80,6 +82,7 @@ public class ArrayListSong
 
             String query = "select * from gen_alb_art_song where artist_name=?";
             PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,song.getArtist_name());
             ResultSet rs = pst.executeQuery();
             while (rs.next())
             {
@@ -104,6 +107,7 @@ public class ArrayListSong
 
             String query = "select * from gen_alb_art_song where song_name=?";
             PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,song.getSong_name());
             ResultSet rs = pst.executeQuery();
             while(rs.next())
             {
