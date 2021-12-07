@@ -11,6 +11,14 @@ create table podcasttype
     podcasttype_name char(50)
 );
 
+-- Show Podcast Type ..
+
+select * from podcasttype;
+
+-- Inserting In Podcast Type ..
+
+insert into podcasttype (podcasttype_name) values('fiction');
+
 -- Creating Table For Narrator ..
 
 create table narrator
@@ -19,6 +27,14 @@ create table narrator
     narrator_name char(50)
 );
 
+-- Show Narrator Table ..
+
+select * from narrator;
+
+-- Inserting In Narrator ..
+
+insert into narrator (narrator_name) values('dnyaneshwar maharaj');
+
 -- Creating Table For Celebrity ..
 
 create table celebrity
@@ -26,6 +42,14 @@ create table celebrity
 	celebrity_id int primary key auto_increment,
     celebrity_name char(50)
 );
+
+-- Show Celebrity Table ..
+
+select * from celebrity;
+
+-- Inserting In Celebrity ..
+
+insert into celebrity (celebrity_name) values ('a.p.j.adbul kalam');
 
 -- Creating Table For Podcast ..
 
@@ -41,6 +65,15 @@ create table podcast
     foreign key(celebrity_id)references celebrity(celebrity_id)
 );
 
+-- Show Podcast Table ..
+
+select * from podcast;
+
+-- Inserting In Podcast ..
+
+insert into podcast (podcast_name,podcasttype_id,narrator_id,celebrity_id) 
+values ('spooked2',1,4,3);
+
 -- Creating Table For Podcast Episode ..
 
 create table podcastepisode
@@ -48,10 +81,15 @@ create table podcastepisode
 	podcast_episode_id int primary key auto_increment,
     episode_name char(50),
     episode_number int,
-    episode_duration date default (current_date()),
+    episode_duration char(30),
     podcast_id int,
     foreign key(podcast_id)references podcast(podcast_id)
 );
+
+-- Inserting In Podcast Episode ..
+
+insert into podcastepisode (episode_name,episode_number,episode_duration,podcast_id)
+ values ('chunk 1',2,'2:12:20',12);
 
 --  Creating View For Getting All Values ..
 
