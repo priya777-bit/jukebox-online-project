@@ -14,6 +14,15 @@ public class JukeBox
         List<Song> songs=dbms.getAllSongs(); // songs is master data
         //songs.stream().sorted(Comparator.comparing(Song::getGenre_name)).findAny();
         dbms.searchByGenreName("silent");
+        dbms.searchByAlbumName("pilgrim3");
+        dbms.searchByArtistName("priyadahale");
+        dbms.searchBySongName("abhang4");
+
+        dbms.sortByAlbumName("pilgrim3");
+        dbms.sortByArtistName("priyadahale");
+        dbms.sortByDuration("3:00");
+        dbms.sortByGenreName("silent");
+        dbms.sortBySongName("abhang4");
         //
         // filter for artists 'Anand'
         //List<Song> filter1 = abcd.getSongsByArtist(songs,'Anand');

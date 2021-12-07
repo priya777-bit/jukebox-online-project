@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -9,6 +10,11 @@ import static java.sql.Statement.*;
 public class DbOperation
 {
     List<Song> songs = new ArrayList<Song>();
+    Optional<Song> searchbysongname = Optional.empty();
+    Optional<Song> searchbyalbumname = Optional.empty();
+    Optional<Song> searchbyartistname = Optional.empty();
+    Optional<Song> searchbygenrename = Optional.empty();
+    Consumer<Song> display=d->System.out.println(d);
 
     public int getArtistId(String artist_name,String artist_gender)
     {
@@ -289,12 +295,78 @@ public class DbOperation
 
         if(searchbygenrename.isPresent())
         {
-            Consumer<Song> display=d->System.out.println(d);
             songs.stream().filter(p->p.getGenre_name().equalsIgnoreCase(genre_name)).forEach(display);
         }
         else
         {
             System.out.println("No Such Genre Found ..");
         }
+    }
+
+    public void searchBySongName(String song_name)
+    {
+        searchbysongname = songs.stream().filter(p->p.getSong_name().equalsIgnoreCase(song_name)).findAny();
+
+        if(searchbysongname.isPresent())
+        {
+            songs.stream().filter(p->p.getSong_name().equalsIgnoreCase(song_name)).forEach(display);
+        }
+        else
+        {
+            System.out.println("No Such Song Name Exists..");
+        }
+    }
+
+    public void searchByAlbumName(String album_name)
+    {
+        searchbyalbumname = songs.stream().filter(p->p.getAlbum_name().equalsIgnoreCase(album_name)).findAny();
+
+        if(searchbyalbumname.isPresent())
+        {
+            songs.stream().filter(p->p.getAlbum_name().equalsIgnoreCase(album_name)).forEach(display);
+        }
+        else
+        {
+            System.out.println("No Such Album Found ..");
+        }
+    }
+
+    public void searchByArtistName(String artist_name)
+    {
+        searchbyartistname = songs.stream().filter(p->p.getArtist_name().equalsIgnoreCase(artist_name)).findAny();
+
+        if(searchbyartistname.isPresent())
+        {
+            songs.stream().filter(p->p.getArtist_name().equalsIgnoreCase(artist_name)).forEach(display);
+        }
+        else
+        {
+            System.out.println("No SUch Artist Found ..");
+        }
+    }
+
+    public void sortByGenreName(String genre_name)
+    {
+        songs.stream().sorted(Comparator.comparing(Song::getGenre_name)).forEach(display);
+    }
+
+    public void sortByAlbumName(String album_name)
+    {
+        songs.stream().sorted(Comparator.comparing(Song::getAlbum_name)).forEach(display);
+    }
+
+    public void sortByArtistName(String artist_name)
+    {
+        songs.stream().sorted(Comparator.comparing(Song::getArtist_name)).forEach(display);
+    }
+
+    public void sortBySongName(String song_name)
+    {
+        songs.stream().sorted(Comparator.comparing(Song::getSong_name)).forEach(display);
+    }
+
+    public void sortByDuration(String song_duration)
+    {
+        songs.stream().sorted(Comparator.comparing(Song::getSong_duration)).forEach(display);
     }
 }
