@@ -10,7 +10,7 @@ public class JukeBox
 {
     public static void main(String args[])
     {
-        DbOperation dbms = new DbOperation();
+        SongDbOperation dbms = new SongDbOperation();
 
         SongFilterSortOperation sfo = new SongFilterSortOperation();
 
