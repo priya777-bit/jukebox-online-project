@@ -1,6 +1,9 @@
 import jdk.jshell.spi.SPIResolutionException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class PodCastDbOperation
 {
@@ -276,7 +279,7 @@ public class PodCastDbOperation
 
     public boolean addPodCastEpisode(String podcasttype_name , String celebrity_name , String narrator_name ,
             String podcast_name , String episode_name
-            , int episode_number , String episode_duration
+            , int episode_number , String episode_duration , Date episode_release_date
             , int podcasttype_id , int celebrity_id , int narrator_id,int podcast_id)
     {
         boolean result = false;
@@ -310,5 +313,35 @@ public class PodCastDbOperation
             System.out.println(e);
         }
         return result;
+    }
+
+    public List<PodCast> getAllPodCast()
+    {
+        List<PodCast> masterpodcastlist = new ArrayList<PodCast>();
+
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver Registered ..");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            System.out.println("Connection Success ..");
+
+            String query = "select * from type_nar_celeb_pod_podepi";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next())
+            {
+                masterpodcastlist.add(new PodCast(rs.getString(1),rs.getString(2)
+                        ,rs.getString(3), rs.getString(4)
+                        , rs.getString(5),rs.getInt(6), rs.getString(7)
+                        ,rs.getDate(8)));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return masterpodcastlist;
     }
 }

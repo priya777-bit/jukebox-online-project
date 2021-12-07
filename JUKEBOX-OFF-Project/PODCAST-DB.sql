@@ -71,7 +71,7 @@ select * from podcast;
 
 -- Inserting In Podcast ..
 
-insert into podcast (podcast_name,podcasttype_id,narrator_id,celebrity_id) 
+insert into podcast (podcast_name,podcasttype_id,celebrity_id,narrator_id) 
 values ('spooked2',1,4,3);
 
 -- Creating Table For Podcast Episode ..
@@ -86,10 +86,17 @@ create table podcastepisode
     foreign key(podcast_id)references podcast(podcast_id)
 );
 
+alter table podcastepisode
+add  episode_release_date date default(current_date());
+
+-- Show PodCast Episode ..
+
+select * from podcastepisode;
+
 -- Inserting In Podcast Episode ..
 
 insert into podcastepisode (episode_name,episode_number,episode_duration,podcast_id)
- values ('chunk 1',2,'2:12:20',12);
+ values ('boostrap',1,'2:12:20',13);
 
 --  Creating View For Getting All Values ..
 
@@ -104,3 +111,5 @@ join podcastepisode pe on pe.podcast_id=p.podcast_id;
 -- Show View ..
 
 select * from type_nar_celeb_pod_podepi;
+
+select * from podcast where podcast_name = 'this american life';

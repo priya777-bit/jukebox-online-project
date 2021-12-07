@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class PodCast
 {
     private String podcasttype_name;
@@ -7,6 +9,7 @@ public class PodCast
     private String episode_name;
     private int episode_number;
     private String episode_duration;
+    private Date episode_release_date;
 
     //Constructor
     public PodCast()
@@ -14,7 +17,7 @@ public class PodCast
 
     }
 
-    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, int episode_number, String episode_duration) {
+    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, int episode_number, String episode_duration, Date episode_release_date) {
         this.podcasttype_name = podcasttype_name;
         this.narrator_name = narrator_name;
         this.celebrity_name = celebrity_name;
@@ -22,6 +25,7 @@ public class PodCast
         this.episode_name = episode_name;
         this.episode_number = episode_number;
         this.episode_duration = episode_duration;
+        this.episode_release_date = episode_release_date;
     }
 
     //Getter And Setter
@@ -81,6 +85,14 @@ public class PodCast
         this.episode_duration = episode_duration;
     }
 
+    public Date getEpisode_release_date() {
+        return episode_release_date;
+    }
+
+    public void setEpisode_release_date(Date episode_release_date) {
+        this.episode_release_date = episode_release_date;
+    }
+
     //ToString
 
     @Override
@@ -91,8 +103,9 @@ public class PodCast
                 ", celebrity_name='" + celebrity_name + '\'' +
                 ", podcast_name='" + podcast_name + '\'' +
                 ", episode_name='" + episode_name + '\'' +
-                ", episode_number='" + episode_number + '\'' +
+                ", episode_number=" + episode_number +
                 ", episode_duration='" + episode_duration + '\'' +
+                ", episode_release_date=" + episode_release_date +
                 '}';
     }
 }

@@ -11,10 +11,36 @@ public class JukeBox
     public static void main(String args[])
     {
         PodCastDbOperation pdb = new PodCastDbOperation();
-        boolean result = pdb.addPodCastEpisode("horror"
-                ,"soni","shades"
-                ,"mossaic","web 1"
-                ,10,"01:30:25",6,7,8,10);
+        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
+        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
+
+        //java.util.Date date = new java.util.Date();
+        String date1 = "2021-12-07";
+        //DateFormat dt = new SimpleDateFormat(date1);
+        //String date2 = dt.format(date);
+        java.util.Date date = null;
+        try
+        {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
+        pfo.display(searchsortbydate);
+
+//        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
+//        pfo.display(searchsortbycelebrity);
+
+//        long millis = System.currentTimeMillis();
+//        java.sql.Date date4 = new Date(millis);
+
+//        boolean result = pdb.addPodCastEpisode("horror"
+//                ,"soni","shades"
+//                ,"mossaic","web 1"
+//                ,10,"01:30:25",date4,6,7,8,10);
 //        SongDbOperation dbms = new SongDbOperation();
 //
 //        SongFilterSortOperation sfo = new SongFilterSortOperation();
@@ -33,31 +59,13 @@ public class JukeBox
 //
 //        List<Song> searchsortbygenre = sfo.searchSortByGenre(mastersonglist,"spiritual");
 //        sfo.display(searchsortbygenre);
-
-
-
-
-//        long millis = System.currentTimeMillis();
-//        java.sql.Date date4 = new Date(millis);
 //
 //
 //        boolean addsong = dbms.addSong("rock","saavan"
 //                ,date4,"bhimsen-joshi","male"
 //                ,"ata kothe dhave man","8:30",5,6,1);
 //*************************************************************************//////////////////////////////////
-//        java.util.Date date = new java.util.Date();
-//        String date1 = "yyyy-MM-dd";
-//        DateFormat dt = new SimpleDateFormat(date1);
-//        String date2 = dt.format(date);
-//        java.util.Date date3 = null;
-//        try
-//        {
-//            date3 = new SimpleDateFormat("yyyy-MM-dd").parse(date2);
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e);
-//        }
+//
         //ArrayListSong songs = new ArrayListSong();
      //   Song song = new Song("rock","saavan",date3,
        //         "priyaddd","female","sant tochi","4:00");
