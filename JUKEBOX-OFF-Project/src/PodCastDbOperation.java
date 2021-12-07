@@ -14,7 +14,7 @@ public class PodCastDbOperation
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
             System.out.println("Connection Success ..");
 
-            String query = "select * from podcasttpe where podcasttype_name=?";
+            String query = "select * from podcasttype where podcasttype_name=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1,podcasttype_name);
             ResultSet rs = pst.executeQuery();
@@ -142,7 +142,7 @@ public class PodCastDbOperation
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
             System.out.println("Connection Success ..");
 
-            String query = "select * narrator where narrator_name=?";
+            String query = "select * from narrator where narrator_name=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1,narrator_name);
             ResultSet rs = pst.executeQuery();

@@ -252,13 +252,6 @@ public class SongDbOperation
             ResultSet rs = pst.executeQuery();
             while(rs.next())
             {
-//                        rs.getString(1);
-//                        rs.getString(2);
-//                        rs.getDate(3);
-//                        rs.getString(4);
-//                        rs.getString(5);
-//                        rs.getString(6);
-//                        rs.getString(7);
                 mastersonglist.add(new Song( rs.getString(1), rs.getString(2),
                         rs.getDate(3),  rs.getString(4), rs.getString(5),
                         rs.getString(6), rs.getString(7)));

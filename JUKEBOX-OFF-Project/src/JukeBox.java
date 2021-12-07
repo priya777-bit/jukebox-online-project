@@ -11,10 +11,10 @@ public class JukeBox
     public static void main(String args[])
     {
         PodCastDbOperation pdb = new PodCastDbOperation();
-        boolean result = pdb.addPodCastEpisode("friction"
-                ,"shreya goshal","null"
-                ,"spooked2","episode 1"
-                ,3,"30:30",5,3,5,3);
+        boolean result = pdb.addPodCastEpisode("horror"
+                ,"soni","shades"
+                ,"mossaic","web 1"
+                ,10,"01:30:25",6,7,8,10);
 //        SongDbOperation dbms = new SongDbOperation();
 //
 //        SongFilterSortOperation sfo = new SongFilterSortOperation();
