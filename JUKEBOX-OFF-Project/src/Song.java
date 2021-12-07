@@ -84,4 +84,18 @@ public class Song
     public void setSong_duration(String song_duration) {
         this.song_duration = song_duration;
     }
+
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "genre_name='" + genre_name + '\'' +
+                ", album_name='" + album_name + '\'' +
+                ", album_release_date=" + album_release_date +
+                ", artist_name='" + artist_name + '\'' +
+                ", artist_gender='" + artist_gender + '\'' +
+                ", song_name='" + song_name + '\'' +
+                ", song_duration='" + song_duration + '\'' +
+                '}';
+    }
 }

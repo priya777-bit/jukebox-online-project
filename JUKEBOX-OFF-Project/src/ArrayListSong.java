@@ -31,12 +31,13 @@ public class ArrayListSong
             String query = "select * from gen_alb_art_song where genre_name=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1,song.getGenre_name());
+
             ResultSet rs = pst.executeQuery();
 
             while(rs.next())
             {
                 song.setGenre_name(rs.getString(1));
-                genrelist.add(song);
+                System.out.println("Genre Added .."+genrelist.add(song));
             }
         }
         catch(Exception e)
@@ -58,12 +59,19 @@ public class ArrayListSong
             String query = "select * from gen_alb_art_song where album_name=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1,song.getAlbum_name());
+            System.out.println(pst);
             ResultSet rs = pst.executeQuery();
-            while(rs.next())
+
+            if(rs.next())
             {
-                song.setAlbum_name(rs.getString(2));
+                //song.setAlbum_name(rs.getString(2));
+                 albumlist.add(song);
+            }
+            else{
                 albumlist.add(song);
             }
+
+
         }
         catch (Exception e)
         {

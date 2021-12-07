@@ -1,9 +1,15 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import static java.sql.Statement.*;
 
 public class DbOperation
 {
+    List<Song> songs = new ArrayList<Song>();
+
     public int getArtistId(String artist_name,String artist_gender)
     {
         int artist_id=0;
@@ -191,6 +197,7 @@ public class DbOperation
         }
         return genre_id;
     }
+
     public boolean addSong(String genre_name,String album_name,Date album_release_date
             ,String artist_name,String artist_gender,String song_name,String song_duration
             ,int artist_id,int album_id,int genre_id)
@@ -234,5 +241,60 @@ public class DbOperation
             System.out.println(e);
         }
         return result;
+    }
+    //
+
+    List<Song> getAllSongs()
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver Registered..");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox", "root", "root");
+            System.out.println("Connection Success..");
+
+            String query = "select * from gen_alb_art_song";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                        rs.getString(1);
+                        rs.getString(2);
+                        rs.getDate(3);
+                        rs.getString(4);
+                        rs.getString(5);
+                        rs.getString(6);
+                        rs.getString(7);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return songs;
+    }
+//    List<Song> getSongsByArtist(String artist_name){
+//        List<Song> songs = new ArrayList<Song>();
+//
+//        return songs;
+//    }
+//    List<Song> getSongsByGenre(String genre_name){
+//        List<Song> songs = new ArrayList<Song>();
+//
+//        return songs;
+//    }
+
+    public void searchByGenreName(String genre_name)
+    {
+        Optional searchbygenrename = songs.stream().filter(p -> p.getGenre_name().equalsIgnoreCase(genre_name)).findAny();
+
+        if(searchbygenrename.isPresent())
+        {
+            Consumer<Song> display=d->System.out.println(d);
+            songs.stream().filter(p->p.getGenre_name().equalsIgnoreCase(genre_name)).forEach(display);
+        }
+        else
+        {
+            System.out.println("No Such Genre Found ..");
+        }
     }
 }

@@ -3,6 +3,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class JukeBox
@@ -10,6 +11,16 @@ public class JukeBox
     public static void main(String args[])
     {
         DbOperation dbms = new DbOperation();
+        List<Song> songs=dbms.getAllSongs(); // songs is master data
+        //songs.stream().sorted(Comparator.comparing(Song::getGenre_name)).findAny();
+        dbms.searchByGenreName("silent");
+        //
+        // filter for artists 'Anand'
+        //List<Song> filter1 = abcd.getSongsByArtist(songs,'Anand');
+        // songs.stream().filter
+
+        //
+
 
         long millis = System.currentTimeMillis();
         java.sql.Date date4 = new Date(millis);
@@ -38,14 +49,18 @@ public class JukeBox
         {
             System.out.println(e);
         }
-        ArrayListSong songs = new ArrayListSong();
-        Song song = new Song("rock","saavan",date3,
-                "priyaddd","female","sant tochi","4:00");
-        //List<Song> genrelist = songs.addSongListByGenre(song);
-        //songs.displayGenreList();
+        //ArrayListSong songs = new ArrayListSong();
+     //   Song song = new Song("rock","saavan",date3,
+       //         "priyaddd","female","sant tochi","4:00");
+//        List<Song> genrelist = songs.addSongListByGenre(song);
+//        songs.displayGenreList();
+//        System.out.println("Genre List Is .."+genrelist);
 
-       // List<Song> albumlist = songs.addSongListByAlbum(song);
-//        songs.displayAlbumList();
+        //addSong(song); //
+        // add song to song table : to check whether artist,album,genre are existing
+//          List<Song> albumlist = songs.addSongListByAlbum(song);
+//          songs.displayAlbumList();
+//          System.out.println("Album List Is .."+albumlist);
 
         //List<Song> artistlist = songs.addSongListByArtist(song);
 //        songs.displayArtistList();
@@ -53,15 +68,17 @@ public class JukeBox
           //List<Song> songlist = songs.addSongListBySongName(song);
 //        songs.displaySongList();
 
-        //songs.sortByDuration(songlist);
+         //songs.sortByDuration(songlist);
         //songs.sortBySongName(songlist);
-        //songs.sortByAlbumName(albumlist);
+          //songs.sortByAlbumName(albumlist);
+          //System.out.println("Sorted Songs Are .."+songs);
         //songs.sortByArtistName(artistlist);
         //songs.sortByGenreName(genrelist);
 
-        songs.searchByAlbumName("saavan");
+         //songs.searchByAlbumName("pilgrim");
+        // System.out.println("Search By Album Name .."+songs);
         //songs.searchByArtistName("priya");
-        //songs.searchByGenreName("silent");
+       // songs.searchByGenreName("silent");
         //songs.searchBySongName("abhang");
     }
 }

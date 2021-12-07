@@ -56,6 +56,21 @@ select g.genre_name , al.album_name , al.album_release_date
 , art.artist_name , art.artist_gender , s.song_name , s.song_duration from genre as g
 , album as al , artist as art , song as s;
 
+create view gen_alb_art_song as 
+select ge.genre_name,al.album_name,al.album_release_date,art.artist_name,art.artist_gender
+,sn.song_name,sn.song_duration from genre ge join song sn on ge.genre_id=sn.genre_id
+join artist art on sn.artist_id=art.artist_id join album al on sn.album_id=al.album_id;
+
 -- Show View ..
 
 select * from gen_alb_art_song;
+
+select * from artist;
+select * from album;
+select * from genre;
+select * from song;
+
+delete from artist where artist_name is null;
+
+drop view gen_alb_art_song;
+
