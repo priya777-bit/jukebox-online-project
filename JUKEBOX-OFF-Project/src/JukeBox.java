@@ -11,53 +11,48 @@ public class JukeBox
     public static void main(String args[])
     {
         DbOperation dbms = new DbOperation();
-        List<Song> songs=dbms.getAllSongs(); // songs is master data
-        //songs.stream().sorted(Comparator.comparing(Song::getGenre_name)).findAny();
-        dbms.searchByGenreName("silent");
-        dbms.searchByAlbumName("pilgrim3");
-        dbms.searchByArtistName("priyadahale");
-        dbms.searchBySongName("abhang4");
 
-        dbms.sortByAlbumName("pilgrim3");
-        dbms.sortByArtistName("priyadahale");
-        dbms.sortByDuration("3:00");
-        dbms.sortByGenreName("silent");
-        dbms.sortBySongName("abhang4");
-        //
-        // filter for artists 'Anand'
-        //List<Song> filter1 = abcd.getSongsByArtist(songs,'Anand');
-        // songs.stream().filter
+        SongFilterSortOperation sfo = new SongFilterSortOperation();
 
-        //
+        List<Song> mastersonglist = dbms.getAllSongs(); // mastersonglist is master data
+        //sfo.display(mastersonglist);
+
+//        List<Song> searchsortbyartist = sfo.searchSortByArtist(mastersonglist,"priyadahale");
+//        sfo.display(searchsortbyartist);
+
+//        List<Song> searchsortbyalbum = sfo.searchSortByAlbum(mastersonglist,"jazz");
+//        sfo.display(searchsortbyalbum);
+
+//        List<Song> searchsortbysong = sfo.searchSortBySong(mastersonglist,"labb par aye geet suhane");
+//        sfo.display(searchsortbysong);
+//
+        List<Song> searchsortbygenre = sfo.searchSortByGenre(mastersonglist,"spiritual");
+        sfo.display(searchsortbygenre);
 
 
-        long millis = System.currentTimeMillis();
-        java.sql.Date date4 = new Date(millis);
 
-//            String dt = "2020-02-21";
-//            java.sql.Date date = Date.valueOf(dt) ;
 
-          //int artist_id = dbms.getArtistId("priya9","female");
-//        int album_id = dbms.getAlbumId("pilgrim3",date);
-//        int genre_id = dbms.getGenreId("Silent3");
+//        long millis = System.currentTimeMillis();
+//        java.sql.Date date4 = new Date(millis);
+//
+//
+//        boolean addsong = dbms.addSong("rock","saavan"
+//                ,date4,"bhimsen-joshi","male"
+//                ,"ata kothe dhave man","8:30",5,6,1);
 
-//        boolean addsong = dbms.addSong("slient","pilgrim3"
-//                ,date4,"priyadahale","female"
-//                ,"Abhang4","3:00",16,3,2);
-
-        java.util.Date date = new java.util.Date();
-        String date1 = "yyyy-MM-dd";
-        DateFormat dt = new SimpleDateFormat(date1);
-        String date2 = dt.format(date);
-        java.util.Date date3 = null;
-        try
-        {
-            date3 = new SimpleDateFormat("yyyy-MM-dd").parse(date2);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
+//        java.util.Date date = new java.util.Date();
+//        String date1 = "yyyy-MM-dd";
+//        DateFormat dt = new SimpleDateFormat(date1);
+//        String date2 = dt.format(date);
+//        java.util.Date date3 = null;
+//        try
+//        {
+//            date3 = new SimpleDateFormat("yyyy-MM-dd").parse(date2);
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println(e);
+//        }
         //ArrayListSong songs = new ArrayListSong();
      //   Song song = new Song("rock","saavan",date3,
        //         "priyaddd","female","sant tochi","4:00");
