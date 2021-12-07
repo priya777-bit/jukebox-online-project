@@ -5,7 +5,7 @@ public class PodCast
     private String celebrity_name;
     private String podcast_name;
     private String episode_name;
-    private String episode_number;
+    private int episode_number;
     private String episode_duration;
 
     //Constructor
@@ -14,7 +14,7 @@ public class PodCast
 
     }
 
-    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, String episode_number, String episode_duration) {
+    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, int episode_number, String episode_duration) {
         this.podcasttype_name = podcasttype_name;
         this.narrator_name = narrator_name;
         this.celebrity_name = celebrity_name;
@@ -65,11 +65,11 @@ public class PodCast
         this.episode_name = episode_name;
     }
 
-    public String getEpisode_number() {
+    public int getEpisode_number() {
         return episode_number;
     }
 
-    public void setEpisode_number(String episode_number) {
+    public void setEpisode_number(int episode_number) {
         this.episode_number = episode_number;
     }
 
