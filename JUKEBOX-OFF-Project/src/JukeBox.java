@@ -59,9 +59,9 @@ public class JukeBox
         //songs.sortByArtistName(artistlist);
         //songs.sortByGenreName(genrelist);
 
-        //songs.searchByAlbumName("saavan");
+        songs.searchByAlbumName("saavan");
         //songs.searchByArtistName("priya");
         //songs.searchByGenreName("silent");
-        songs.searchBySongName("abhang");
+        //songs.searchBySongName("abhang");
     }
 }

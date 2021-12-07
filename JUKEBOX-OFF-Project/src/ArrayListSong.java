@@ -189,6 +189,10 @@ public class ArrayListSong
         {
             albumlist.stream().filter(p->p.getAlbum_name().equalsIgnoreCase(album_name)).forEach(display);
         }
+        else
+        {
+            System.out.println("No Such Album Found ..");
+        }
     }
 
     public void searchByArtistName(String artist_name)
@@ -199,6 +203,10 @@ public class ArrayListSong
         {
             artistlist.stream().filter(p->p.getArtist_name().equalsIgnoreCase(artist_name)).forEach(display);
         }
+        else
+        {
+            System.out.println("No SUch Artist Found ..");
+        }
     }
 
     public void searchByGenreName(String genre_name)
@@ -208,6 +216,10 @@ public class ArrayListSong
         if(searchbygenrename.isPresent())
         {
             genrelist.stream().filter(p->p.getGenre_name().equalsIgnoreCase(genre_name)).forEach(display);
+        }
+        else
+        {
+            System.out.println("No Such Genre Found ..");
         }
     }
 }
