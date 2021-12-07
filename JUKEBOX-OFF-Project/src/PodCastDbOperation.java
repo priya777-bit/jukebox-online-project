@@ -196,10 +196,43 @@ public class PodCastDbOperation
         return narrator_id;
     }
 
-    private int addPodCast(String podcasttype_name , String celebrity_name , String narrator_name ,
-            String podcast_name , String episode_name
-            , int episode_number , String episode_duration
-            , int podcasttype_id , int celebrity_id , int narrator_id)
+    private int getPodtCastId(String podcast_name,String podcasttype_name,String celebrity_name
+            ,String narrator_name,int podcasttype_id,int celebrity_id,int narrator_id)
+    {
+        int podcast_id = 0;
+
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver Registered ..");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            System.out.println("Connection Success ..");
+
+            String query = "select * from podcast where podcast_name=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,podcast_name);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())
+            {
+                podcast_id = rs.getInt(1);
+                return podcast_id;
+            }
+            else
+            {
+                podcast_id = addPodCastID(podcast_name,podcasttype_name,celebrity_name
+                        ,narrator_name,podcasttype_id,celebrity_id,narrator_id);
+                return podcast_id;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return podcast_id;
+    }
+
+    private int addPodCastID(String podcast_name,String podcasttype_name,String celebrity_name
+            ,String narrator_name,int podcasttype_id,int celebrity_id,int narrator_id)
     {
         int podcast_id = 0;
 
@@ -216,7 +249,8 @@ public class PodCastDbOperation
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
             System.out.println("Connection Success ..");
 
-            String query = "insert into podcast (podcast_name,podcasttype_id,celebrity_id,narrator_id) values(?,?,?)";
+            String query = "insert into podcast (podcast_name,podcasttype_id,celebrity_id,narrator_id) " +
+                    "values (?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             pst.setString(1,podcast_name);
             pst.setInt(2,podcasttype_id);
@@ -232,7 +266,6 @@ public class PodCastDbOperation
                     return podcast_id;
                 }
             }
-
         }
         catch (Exception e)
         {
@@ -242,17 +275,16 @@ public class PodCastDbOperation
     }
 
     public boolean addPodCastEpisode(String podcasttype_name , String celebrity_name , String narrator_name ,
-                                     String podcast_name , String episode_name
+            String podcast_name , String episode_name
             , int episode_number , String episode_duration
-            , int podcasttype_id , int celebrity_id , int narrator_id , int podcast_id)
+            , int podcasttype_id , int celebrity_id , int narrator_id,int podcast_id)
     {
         boolean result = false;
 
         try
         {
-            podcast_id = addPodCast(podcasttype_name,celebrity_name,narrator_name
-                    ,podcast_name,episode_name,episode_number,episode_duration
-                    ,podcasttype_id,celebrity_id,narrator_id);
+            podcast_id = getPodtCastId(podcast_name,podcasttype_name,celebrity_name,
+                    narrator_name,podcasttype_id,celebrity_id,narrator_id);
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
@@ -260,7 +292,7 @@ public class PodCastDbOperation
             System.out.println("Connection Success ..");
 
             String query = "insert into podcastepisode (episode_name,episode_number,episode_duration,podcast_id) " +
-                    "values (?,?,?,?)";
+                    "values(?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1,episode_name);
             pst.setInt(2,episode_number);
@@ -269,8 +301,9 @@ public class PodCastDbOperation
 
             if((pst.executeUpdate())==1)
             {
-                result = true;
+                result =  true;
             }
+
         }
         catch (Exception e)
         {

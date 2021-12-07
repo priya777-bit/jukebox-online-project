@@ -10,11 +10,16 @@ public class JukeBox
 {
     public static void main(String args[])
     {
-        SongDbOperation dbms = new SongDbOperation();
-
-        SongFilterSortOperation sfo = new SongFilterSortOperation();
-
-        List<Song> mastersonglist = dbms.getAllSongs(); // mastersonglist is master data
+        PodCastDbOperation pdb = new PodCastDbOperation();
+        boolean result = pdb.addPodCastEpisode("friction"
+                ,"shreya goshal","null"
+                ,"spooked2","episode 1"
+                ,3,"30:30",5,3,5,3);
+//        SongDbOperation dbms = new SongDbOperation();
+//
+//        SongFilterSortOperation sfo = new SongFilterSortOperation();
+//
+//        List<Song> mastersonglist = dbms.getAllSongs(); // mastersonglist is master data
         //sfo.display(mastersonglist);
 
 //        List<Song> searchsortbyartist = sfo.searchSortByArtist(mastersonglist,"priyadahale");
@@ -26,8 +31,8 @@ public class JukeBox
 //        List<Song> searchsortbysong = sfo.searchSortBySong(mastersonglist,"labb par aye geet suhane");
 //        sfo.display(searchsortbysong);
 //
-        List<Song> searchsortbygenre = sfo.searchSortByGenre(mastersonglist,"spiritual");
-        sfo.display(searchsortbygenre);
+//        List<Song> searchsortbygenre = sfo.searchSortByGenre(mastersonglist,"spiritual");
+//        sfo.display(searchsortbygenre);
 
 
 
