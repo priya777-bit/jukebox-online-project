@@ -14,7 +14,7 @@ public class PodCastDbOperation
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "select * from podcasttype where podcasttype_name=?";
@@ -45,7 +45,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "insert into podcasttype (podcasttype_name) values(?)";
@@ -77,7 +77,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "select * from celebrity where celebrity_name=?";
@@ -110,7 +110,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "insert into celebrity (celebrity_name) values (?)";
@@ -142,7 +142,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "select * from narrator where narrator_name=?";
@@ -175,7 +175,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "insert into narrator (narrator_name) values (?)";
@@ -208,7 +208,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "select * from podcast where podcast_name=?";
@@ -249,7 +249,7 @@ public class PodCastDbOperation
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "insert into podcast (podcast_name,podcasttype_id,celebrity_id,narrator_id) " +
@@ -291,7 +291,7 @@ public class PodCastDbOperation
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "insert into podcastepisode (episode_name,episode_number,episode_duration,podcast_id) " +
@@ -323,7 +323,7 @@ public class PodCastDbOperation
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/podcast","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
             System.out.println("Connection Success ..");
 
             String query = "select * from type_nar_celeb_pod_podepi";

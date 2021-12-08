@@ -74,3 +74,118 @@ delete from artist where artist_name is null;
 
 drop view gen_alb_art_song;
 
+-- Podcast Start ..
+
+-- Creating Table For Type For Podcast ..
+
+create table podcasttype
+(
+	podcasttype_id int primary key auto_increment,
+    podcasttype_name char(50)
+);
+
+-- Show Podcast Type ..
+
+select * from podcasttype;
+
+-- Inserting In Podcast Type ..
+
+insert into podcasttype (podcasttype_name) values('hybrid');
+
+-- Creating Table For Narrator ..
+
+create table narrator
+(
+	narrator_id int primary key auto_increment,
+    narrator_name char(50)
+);
+
+-- Show Narrator Table ..
+
+select * from narrator;
+
+-- Inserting In Narrator ..
+
+insert into narrator (narrator_name) values('vikas adam');
+
+-- Creating Table For Celebrity ..
+
+create table celebrity
+(
+	celebrity_id int primary key auto_increment,
+    celebrity_name char(50)
+);
+
+-- Show Celebrity Table ..
+
+select * from celebrity;
+
+-- Inserting In Celebrity ..
+
+insert into celebrity (celebrity_name) values ('mukesh ambani');
+
+-- Creating Table For Podcast ..
+
+create table podcast
+(
+	podcast_id int primary key auto_increment,
+    podcast_name char(50),
+    podcasttype_id int,
+    narrator_id int,
+    celebrity_id int,
+    foreign key(podcasttype_id)references podcasttype(podcasttype_id),
+    foreign key(narrator_id)references narrator(narrator_id),
+    foreign key(celebrity_id)references celebrity(celebrity_id)
+);
+
+-- Show Podcast Table ..
+
+select * from podcast;
+
+-- Inserting In Podcast ..
+
+insert into podcast (podcast_name,podcasttype_id,celebrity_id,narrator_id) 
+values ('how to fail',2,4,3);
+
+-- Creating Table For Podcast Episode ..
+
+create table podcastepisode
+(
+	podcast_episode_id int primary key auto_increment,
+    episode_name char(50),
+    episode_number int,
+    episode_duration char(30),
+    podcast_id int,
+    foreign key(podcast_id)references podcast(podcast_id)
+);
+
+alter table podcastepisode
+add  episode_release_date date default(current_date());
+
+-- Show PodCast Episode ..
+
+select * from podcastepisode;
+
+-- Inserting In Podcast Episode ..
+
+insert into podcastepisode (episode_name,episode_number,episode_duration,podcast_id,episode_release_date)
+ values ('day dreamer',15,'45:00',10,'2020-01-31');
+
+--  Creating View For Getting All Values ..
+
+create view type_nar_celeb_pod_podepi as
+select t.podcasttype_name,n.narrator_name,c.celebrity_name
+,p.podcast_name,pe.episode_name,pe.episode_number,pe.episode_duration,pe.episode_release_date
+from podcasttype t join podcast p on t.podcasttype_id=p.podcasttype_id 
+join narrator n on n.narrator_id=p.narrator_id
+join celebrity c on c.celebrity_id=p.celebrity_id 
+join podcastepisode pe on pe.podcast_id=p.podcast_id;
+
+-- Show View ..
+
+select * from type_nar_celeb_pod_podepi;
+
+select * from podcast where podcast_name = 'this american life';
+
+drop view type_nar_celeb_pod_podepi;
+

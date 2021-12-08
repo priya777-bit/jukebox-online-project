@@ -18,6 +18,10 @@ public class PodCastFilterSortOperation
                     filter(p->p.getCelebrity_name().equalsIgnoreCase(celebrity_name)).
                     sorted(Comparator.comparing(PodCast::getPodcasttype_name)).collect(Collectors.toList());
         }
+        else
+        {
+            System.out.println("No Such Celebrity Found..");
+        }
         return searchsortbycelebrityname;
     }
 
@@ -33,6 +37,10 @@ public class PodCastFilterSortOperation
             searchsortbyepisodereleasedate = masterpodcastlist.stream().filter(p->p.getEpisode_release_date().
                     equals(episode_release_date)).sorted(Comparator.comparing(PodCast::getPodcasttype_name)).
                     collect(Collectors.toList());
+        }
+        else
+        {
+            System.out.println("No Such Date Recognised..");
         }
         return searchsortbyepisodereleasedate;
     }

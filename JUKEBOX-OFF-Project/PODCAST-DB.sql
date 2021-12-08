@@ -102,7 +102,7 @@ insert into podcastepisode (episode_name,episode_number,episode_duration,podcast
 
 create view type_nar_celeb_pod_podepi as
 select t.podcasttype_name,n.narrator_name,c.celebrity_name
-,p.podcast_name,pe.episode_name,pe.episode_number,pe.episode_duration 
+,p.podcast_name,pe.episode_name,pe.episode_number,pe.episode_duration,pe.episode_release_date
 from podcasttype t join podcast p on t.podcasttype_id=p.podcasttype_id 
 join narrator n on n.narrator_id=p.narrator_id
 join celebrity c on c.celebrity_id=p.celebrity_id 
@@ -113,3 +113,5 @@ join podcastepisode pe on pe.podcast_id=p.podcast_id;
 select * from type_nar_celeb_pod_podepi;
 
 select * from podcast where podcast_name = 'this american life';
+
+drop view type_nar_celeb_pod_podepi;

@@ -13,9 +13,10 @@ public class JukeBox
         PodCastDbOperation pdb = new PodCastDbOperation();
         List<PodCast> masterpodcastlist = pdb.getAllPodCast();
         PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
+        //pfo.display(masterpodcastlist);
 
         //java.util.Date date = new java.util.Date();
-        String date1 = "2021-12-07";
+        String date1 = "2019-07-25";
         //DateFormat dt = new SimpleDateFormat(date1);
         //String date2 = dt.format(date);
         java.util.Date date = null;
@@ -31,16 +32,16 @@ public class JukeBox
         List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
         pfo.display(searchsortbydate);
 
-//        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
-//        pfo.display(searchsortbycelebrity);
+        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
+        pfo.display(searchsortbycelebrity);
 
-//        long millis = System.currentTimeMillis();
-//        java.sql.Date date4 = new Date(millis);
+        long millis = System.currentTimeMillis();
+        java.sql.Date date4 = new Date(millis);
 
-//        boolean result = pdb.addPodCastEpisode("horror"
-//                ,"soni","shades"
-//                ,"mossaic","web 1"
-//                ,10,"01:30:25",date4,6,7,8,10);
+        boolean result = pdb.addPodCastEpisode("horror"
+                ,"soni","shades"
+                ,"mossaic","web 1"
+                ,10,"01:30:25",date4,6,7,8,10);
 //        SongDbOperation dbms = new SongDbOperation();
 //
 //        SongFilterSortOperation sfo = new SongFilterSortOperation();
