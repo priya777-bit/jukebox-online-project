@@ -1,4 +1,4 @@
--- Creating Database Of Juke-Box
+-- Creating Database Of Juke-Box -- TASK 1 Songs ..
 
 create database jukebox;
 use jukebox;
@@ -74,7 +74,7 @@ delete from artist where artist_name is null;
 
 drop view gen_alb_art_song;
 
--- Podcast Start ..
+-- Podcast Start .. TASK 2 ..
 
 -- Creating Table For Type For Podcast ..
 
@@ -188,4 +188,8 @@ select * from type_nar_celeb_pod_podepi;
 select * from podcast where podcast_name = 'this american life';
 
 drop view type_nar_celeb_pod_podepi;
+
+-- PLAYLIST START .. TASK 3 ..
+
+
 
