@@ -24,12 +24,10 @@ public class PodCastDbOperation
             if(rs.next())
             {
                 podcasttype_id = rs.getInt(1);
-                return podcasttype_id;
             }
             else
             {
                 podcasttype_id = addPodCastTypeId(podcasttype_name);
-                return podcasttype_id;
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -58,7 +56,6 @@ public class PodCastDbOperation
                 if(rs.next())
                 {
                     podcasttype_id = rs.getInt(1);
-                    return podcasttype_id;
                 }
             }
         }
@@ -87,12 +84,10 @@ public class PodCastDbOperation
             if(rs.next())
             {
                 celebrity_id = rs.getInt(1);
-                return celebrity_id;
             }
             else
             {
                 celebrity_id = addCelebrityId(celebrity_name);
-                return celebrity_id;
             }
         }
         catch (Exception e)
@@ -123,7 +118,6 @@ public class PodCastDbOperation
                 if(rs.next())
                 {
                     celebrity_id = rs.getInt(1);
-                    return celebrity_id;
                 }
             }
         }
@@ -152,12 +146,10 @@ public class PodCastDbOperation
             if(rs.next())
             {
                 narrator_id = rs.getInt(1);
-                return narrator_id;
             }
             else
             {
                 narrator_id = addNarratorId(narrator_name);
-                return narrator_id;
             }
         }
         catch(Exception e)
@@ -188,7 +180,6 @@ public class PodCastDbOperation
                 if(rs.next())
                 {
                     narrator_id = rs.getInt(1);
-                    return narrator_id;
                 }
             }
         }
@@ -218,13 +209,11 @@ public class PodCastDbOperation
             if(rs.next())
             {
                 podcast_id = rs.getInt(1);
-                return podcast_id;
             }
             else
             {
                 podcast_id = addPodCastID(podcast_name,podcasttype_name,celebrity_name
                         ,narrator_name,podcasttype_id,celebrity_id,narrator_id);
-                return podcast_id;
             }
         }
         catch (Exception e)
@@ -266,7 +255,6 @@ public class PodCastDbOperation
                 if(rs.next())
                 {
                     podcast_id = rs.getInt(1);
-                    return podcast_id;
                 }
             }
         }

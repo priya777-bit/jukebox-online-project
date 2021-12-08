@@ -23,12 +23,10 @@ public class SongDbOperation
             if(rs.next())
             {
                  artist_id = rs.getInt(1);
-                 return artist_id;
             }
             else
             {
                 artist_id = addArtistId(artist_name,artist_gender);
-                return artist_id;
             }
 
         }
@@ -57,8 +55,7 @@ public class SongDbOperation
             {
                 ResultSet rs = pst.getGeneratedKeys();
                 if(rs.next())
-                {artist_id=rs.getInt(1);
-                return artist_id;}
+                {artist_id=rs.getInt(1);}
             }
         }
         catch (Exception e)
@@ -87,12 +84,10 @@ public class SongDbOperation
             if(rs.next())
             {
                 album_id=rs.getInt(1);
-                return album_id;
             }
             else
             {
                 album_id=addAlbumId(album_name,album_release_date);
-                return album_id;
             }
         }
         catch (Exception e)
@@ -120,8 +115,7 @@ public class SongDbOperation
             {
                 ResultSet rs = pst.getGeneratedKeys();
                 if(rs.next())
-                {album_id = rs.getInt(1);
-                return album_id;}
+                {album_id = rs.getInt(1);}
             }
         }
         catch (Exception e)
@@ -148,12 +142,10 @@ public class SongDbOperation
             if(rs.next())
             {
                 genre_id=rs.getInt(1);
-                return genre_id;
             }
             else
             {
                 genre_id=addGenreId(genre_name);
-                return genre_id;
             }
         }
         catch (Exception e)
@@ -180,8 +172,7 @@ public class SongDbOperation
             {
                 ResultSet rs = pst.getGeneratedKeys();
                 if(rs.next())
-                {genre_id = rs.getInt(1);
-                return genre_id;}
+                {genre_id = rs.getInt(1);}
             }
         }
         catch (Exception e)
