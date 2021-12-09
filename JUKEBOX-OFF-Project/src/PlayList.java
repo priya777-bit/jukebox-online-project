@@ -43,6 +43,8 @@ public class PlayList
 
     public List<AddSongPodCast> addSongToPlayList(int menu , String song_name)
     {
+        AddSongPodCast afo = new AddSongPodCast();
+
         List<AddSongPodCast> songnamelist = getCombinationOfSongPodCast();
 
         int playlist_id = getPlayListId(menu,song_name);
@@ -66,7 +68,7 @@ public class PlayList
                 {
                     int song_id= rs.getInt(1);
                     String query2 = "insert into playlistcontent (content_duration,playlist_id,track_id) values(?,?,?)";
-                    pst.setString(1,asp.getContent_duration());
+                    pst.setString(1,afo.getContent_duration());
                     pst.setInt(2,menu);
                     pst.setInt(3,song_id);
                     display(songnamelist);
