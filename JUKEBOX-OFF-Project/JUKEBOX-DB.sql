@@ -191,5 +191,73 @@ drop view type_nar_celeb_pod_podepi;
 
 -- PLAYLIST START .. TASK 3 ..
 
+-- Creating Playlist Table ..
+
+create table playlist
+(
+	playlist_id int primary key  auto_increment,
+    playlist_name char(50)
+);
+
+-- Inserting In Playlist ..
+
+insert into playlist(playlist_name) values('song1');
+
+-- Show Playlist Table ..
+
+select * from playlist;
+
+-- Inserting Into PlayList Values ..
 
 
+
+-- Creating Playlist Content Table ..
+
+create table playlistcontent
+(
+	content_id int primary key auto_increment,
+    content_duration char(30),
+    playlist_id int,
+    track_id int,
+    foreign key(playlist_id)references playlist(playlist_id)
+);
+
+-- Drop Table PlayListContent ..
+
+drop table playlistcontent;
+
+-- Drop Key Constraint ..
+
+alter table playlistcontent
+drop foreign key song_id;
+
+-- Inserting Into PlayListContent ..
+
+insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',1,4);
+insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',1,25);
+
+select * from song;
+select * from podcastepisode;
+
+describe playlistcontent;
+
+
+
+-- Show PlaylistContent Table ..
+
+select * from playlistcontent;
+
+-- Creating View For Playlist ..
+
+create view p_play as
+select p.playlist_name , pl.content_duration ,
+s.song_name , s.song_duration , pe.episode_name , pe.episode_duration
+from playlist p join playlistcontent pl on p.playlist_id=pl.playlist_id
+join song s on s.song_id=pl.track_id
+join podcastepisode pe on pe.podcast_episode_id=pl.track_id;
+
+
+
+select * from p_play;
+
+drop view p_play;
