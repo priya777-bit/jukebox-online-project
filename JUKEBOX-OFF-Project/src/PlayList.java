@@ -7,8 +7,6 @@ import java.util.function.Consumer;
 
 public class PlayList
 {
-    AddSongPodCast asp = new AddSongPodCast();
-
     public void display(List<AddSongPodCast> allplaylistname)
     {
         Consumer<AddSongPodCast> display = d->System.out.println(d);
@@ -49,8 +47,6 @@ public class PlayList
 
         int playlist_id = getPlayListId(menu,song_name);
 
-        List<Song> getsongbysongname = searchSortBySong(songnamelist,song_name);
-
         Optional<AddSongPodCast> filterbysongname = songnamelist.stream()
                 .filter(p->p.getSong_name().equalsIgnoreCase(song_name)).findAny();
         try
@@ -71,8 +67,8 @@ public class PlayList
                     int song_id= rs.getInt(1);
                     String query2 = "insert into playlistcontent (content_duration,playlist_id,track_id) values(?,?,?)";
                     pst.setString(1,asp.getContent_duration());
-                    pst.setInt(2,getPlayListId());
-
+                    pst.setInt(2,menu);
+                    pst.setInt(3,song_id);
                     display(songnamelist);
                 }
             }
