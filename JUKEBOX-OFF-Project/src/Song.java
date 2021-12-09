@@ -18,7 +18,8 @@ public class Song
     {
 
     }
-    public Song(String genre_name, String album_name, Date album_release_date, String artist_name, String artist_gender, String song_name, String song_duration) {
+    public Song(String genre_name, String album_name, Date album_release_date, String artist_name, String artist_gender, String song_name, String song_duration)
+    {
         this.genre_name = genre_name;
         this.album_name = album_name;
         this.album_release_date = album_release_date;
@@ -84,7 +85,6 @@ public class Song
     public void setSong_duration(String song_duration) {
         this.song_duration = song_duration;
     }
-
 
     @Override
     public String toString() {

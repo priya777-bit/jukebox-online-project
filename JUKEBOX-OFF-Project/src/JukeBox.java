@@ -10,9 +10,14 @@ public class JukeBox
 {
     public static void main(String args[])
     {
-        PodCastDbOperation pdb = new PodCastDbOperation();
-        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
-        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
+        DbOperationPlayList dbp = new DbOperationPlayList();
+        PlayListFilterOperation pfo = new PlayListFilterOperation();
+        boolean result = dbp.addPlayListContent("song2","45:60",1000);
+        List<AddSongPodCast> contentlist = dbp.getCombinationOfSongPodCast();
+        pfo.display(contentlist);
+//        PodCastDbOperation pdb = new PodCastDbOperation();
+//        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
+//        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
         //pfo.display(masterpodcastlist);
 
         //java.util.Date date = new java.util.Date();
@@ -29,19 +34,19 @@ public class JukeBox
             System.out.println(e);
         }
 
-        List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
-        pfo.display(searchsortbydate);
-
-        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
-        pfo.display(searchsortbycelebrity);
+//        List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
+//        pfo.display(searchsortbydate);
+//
+//        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
+//        pfo.display(searchsortbycelebrity);
 
         long millis = System.currentTimeMillis();
         java.sql.Date date4 = new Date(millis);
 
-        boolean result = pdb.addPodCastEpisode("horror"
-                ,"soni","shades"
-                ,"mossaic","web 1"
-                ,10,"01:30:25",date4,6,7,8,10);
+//        boolean result = pdb.addPodCastEpisode("horror"
+//                ,"soni","shades"
+//                ,"mossaic","web 1"
+//                ,10,"01:30:25",date4,6,7,8,10);
 //        SongDbOperation dbms = new SongDbOperation();
 //
 //        SongFilterSortOperation sfo = new SongFilterSortOperation();

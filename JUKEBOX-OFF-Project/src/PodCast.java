@@ -17,7 +17,8 @@ public class PodCast
 
     }
 
-    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, int episode_number, String episode_duration, Date episode_release_date) {
+    public PodCast(String podcasttype_name, String narrator_name, String celebrity_name, String podcast_name, String episode_name, int episode_number, String episode_duration, Date episode_release_date)
+    {
         this.podcasttype_name = podcasttype_name;
         this.narrator_name = narrator_name;
         this.celebrity_name = celebrity_name;
