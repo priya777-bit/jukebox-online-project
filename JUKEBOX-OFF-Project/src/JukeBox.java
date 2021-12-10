@@ -10,11 +10,31 @@ public class JukeBox
 {
     public static void main(String args[])
     {
+//        do {
+//            System.out.println("Enter Song To Add:");
+//            System.out.println("Display/Get List Of All song:");
+//            System.out.println("Search Song By Song Name:");
+//            System.out.println("Search Song By Album Name");
+//            System.out.println("Search Song By Artist Name:");
+//            System.out.println("Search Song By Genre Name");
+//            System.out.println("Enter PodCastEpisode To Add:");
+//            System.out.println("Display/Get PodCastEpisodeList:");
+//            System.out.println("Search PodCast Episode By Celebrity Name:");
+//            System.out.println("Search PodCast Episode By Date:");
+//            System.out.println("Add Content To PlayList:");
+//            System.out.println("Get Content Of PlayList");
+//            System.out.println("");
+//        }
         DbOperationPlayList dbp = new DbOperationPlayList();
         PlayListFilterOperation pfo = new PlayListFilterOperation();
-        boolean result = dbp.addPlayListContent("song2","45:60",1000);
+        //boolean result = dbp.addPlayListContent("podcast","45:60",1);
         List<AddSongPodCast> contentlist = dbp.getCombinationOfSongPodCast();
         pfo.display(contentlist);
+//        List<SongPlaylist> songlist = pfo.getAllSongBySongName(contentlist,"song1",
+//                "katya kaljat ghusli");
+        //System.out.println("\nFiltered : " + songlist);
+        List<PodCastPlayList> podlist = pfo.getAllPodCastByPodCastName(contentlist,"song1","web 1");
+        System.out.println("Filtered Podlist :" +podlist);
 //        PodCastDbOperation pdb = new PodCastDbOperation();
 //        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
 //        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
