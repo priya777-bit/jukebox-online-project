@@ -1,3 +1,6 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -8,8 +11,14 @@ import java.util.List;
 
 public class JukeBox
 {
-    public static void main(String args[])
+    public static void main(String args[]) throws LineUnavailableException, IOException, UnsupportedAudioFileException
     {
+        AudioPlayer audio = new AudioPlayer("c:\\songs\\s1.wav");
+        //audio.giveFilePath("music\\file_example_WAV_1MG.wav");
+        audio.giveFilePath();
+        audio.play();
+
+
 //        do {
 //            System.out.println("Enter Song To Add:");
 //            System.out.println("Display/Get List Of All song:");
@@ -25,16 +34,16 @@ public class JukeBox
 //            System.out.println("Get Content Of PlayList");
 //            System.out.println("");
 //        }
-        DbOperationPlayList dbp = new DbOperationPlayList();
-        PlayListFilterOperation pfo = new PlayListFilterOperation();
-        //boolean result = dbp.addPlayListContent("podcast","45:60",1);
-        List<AddSongPodCast> contentlist = dbp.getCombinationOfSongPodCast();
-        pfo.display(contentlist);
-//        List<SongPlaylist> songlist = pfo.getAllSongBySongName(contentlist,"song1",
-//                "katya kaljat ghusli");
-        //System.out.println("\nFiltered : " + songlist);
-        List<PodCastPlayList> podlist = pfo.getAllPodCastByPodCastName(contentlist,"song1","web 1");
-        System.out.println("Filtered Podlist :" +podlist);
+//        DbOperationPlayList dbp = new DbOperationPlayList();
+//        PlayListFilterOperation pfo = new PlayListFilterOperation();
+//        //boolean result = dbp.addPlayListContent("podcast","45:60",1);
+//        List<AddSongPodCast> contentlist = dbp.getCombinationOfSongPodCast();
+//        pfo.display(contentlist);
+////        List<SongPlaylist> songlist = pfo.getAllSongBySongName(contentlist,"song1",
+////                "katya kaljat ghusli");
+//        //System.out.println("\nFiltered : " + songlist);
+//        List<PodCastPlayList> podlist = pfo.getAllPodCastByPodCastName(contentlist,"song1","web 1");
+//        System.out.println("Filtered Podlist :" +podlist);
 //        PodCastDbOperation pdb = new PodCastDbOperation();
 //        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
 //        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
@@ -44,15 +53,15 @@ public class JukeBox
         String date1 = "2019-07-25";
         //DateFormat dt = new SimpleDateFormat(date1);
         //String date2 = dt.format(date);
-        java.util.Date date = null;
-        try
-        {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
+//        java.util.Date date = null;
+//        try
+//        {
+//            date = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println(e);
+//        }
 
 //        List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
 //        pfo.display(searchsortbydate);
@@ -60,8 +69,8 @@ public class JukeBox
 //        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
 //        pfo.display(searchsortbycelebrity);
 
-        long millis = System.currentTimeMillis();
-        java.sql.Date date4 = new Date(millis);
+//        long millis = System.currentTimeMillis();
+//        java.sql.Date date4 = new Date(millis);
 
 //        boolean result = pdb.addPodCastEpisode("horror"
 //                ,"soni","shades"
