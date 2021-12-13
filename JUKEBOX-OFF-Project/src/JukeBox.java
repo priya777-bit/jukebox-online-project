@@ -8,60 +8,223 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.StreamSupport;
 
 public class JukeBox
 {
     public static void main(String args[]) throws LineUnavailableException, IOException, UnsupportedAudioFileException
     {
-        AudioPlayer audio = new AudioPlayer("c:\\songs\\s1.wav");
-        //audio.giveFilePath("music\\file_example_WAV_1MG.wav");
-        audio.giveFilePath();
-        audio.play();
+        SongDbOperation dbms = new SongDbOperation();
+        List<Song> mastersonglist = new ArrayList<Song>();
+        SongFilterSortOperation sfo = new SongFilterSortOperation();
 
+        PodCastDbOperation pdb = new PodCastDbOperation();
+        List<PodCast> masterpodcastlist = new ArrayList<PodCast>();
+        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
 
-//        do {
-//            System.out.println("Enter Song To Add:");
-//            System.out.println("Display/Get List Of All song:");
-//            System.out.println("Search Song By Song Name:");
-//            System.out.println("Search Song By Album Name");
-//            System.out.println("Search Song By Artist Name:");
-//            System.out.println("Search Song By Genre Name");
-//            System.out.println("Enter PodCastEpisode To Add:");
-//            System.out.println("Display/Get PodCastEpisodeList:");
-//            System.out.println("Search PodCast Episode By Celebrity Name:");
-//            System.out.println("Search PodCast Episode By Date:");
-//            System.out.println("Add Content To PlayList:");
-//            System.out.println("Get Content Of PlayList");
-//            System.out.println("");
-//        }
-//        DbOperationPlayList dbp = new DbOperationPlayList();
-//        PlayListFilterOperation pfo = new PlayListFilterOperation();
-//        //boolean result = dbp.addPlayListContent("podcast","45:60",1);
-//        List<AddSongPodCast> contentlist = dbp.getCombinationOfSongPodCast();
+        DbOperationPlayList dbp = new DbOperationPlayList();
+        List<AddSongPodCast> contentlist = new ArrayList<AddSongPodCast>();
+        PlayListFilterOperation ppfo = new PlayListFilterOperation();
+
+        int choice;
+
+        do {
+            System.out.println("1: Enter Song To Add:");
+            System.out.println("2: Display/Get List Of All song:");
+            System.out.println("3: Search Song By Song Name:");
+            System.out.println("4: Search Song By Album Name");
+            System.out.println("5: Search Song By Artist Name:");
+            System.out.println("6: Search Song By Genre Name");
+            System.out.println("7: Enter PodCastEpisode To Add:");
+            System.out.println("8: Display/Get PodCastEpisodeList:");
+            System.out.println("9: Search PodCast Episode By Celebrity Name:");
+            System.out.println("10: Search PodCast Episode By Date:");
+            System.out.println("11: Add Content To PlayList:");
+            System.out.println("12: Get/Display Content Of PlayList");
+            System.out.println("13: Play Song");
+
+            Scanner sc = new Scanner(System.in);
+            choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1 :
+                    System.out.println("1: Enter Genre Name:");
+                    String genre_name=sc.next();
+                    System.out.println("2: Enter Album Name:");
+                    String album_name=sc.next();
+                    System.out.println("3: Enter Date In yyyy-MM-dd Format OR It Will Take Current Date: ");
+                    long millis = System.currentTimeMillis();
+                    java.sql.Date date4 = new Date(millis);
+                    String date =sc.next();
+                    java.util.Date dt=null;
+                    java.sql.Date date1=null;
+                    try
+                    {
+                        dt=new SimpleDateFormat("yyyy-MM-dd").parse(date);
+                        date1 = new java.sql.Date(dt.getTime());
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println(e);
+                    }
+
+                    System.out.println("4: Enter Artist Name:");
+                    String artist_name=sc.next();
+                    System.out.println("5: Enter Artist Gender:");
+                    String artist_gender=sc.next();
+                    System.out.println("6: Enter Song Name:");
+                    String song_name = sc.next();
+                    System.out.println("7: Enter Song Duration:");
+                    String song_duration=sc.next();
+                    boolean songs = dbms.addSong(genre_name,album_name
+                            ,date1,artist_name,artist_gender,song_name,song_duration);
+                    break;
+
+                case 2:
+                    mastersonglist = dbms.getAllSongs();
+                    sfo.display(mastersonglist);
+                    break;
+
+                case 3:
+                    System.out.println("Enter Song Name To Be Searched:");
+                    String songname=sc.next();
+                    List<Song> filterbysong = sfo.searchSortBySong(mastersonglist,songname);
+                    sfo.display(filterbysong);
+                    break;
+
+                case 4:
+                    System.out.println("Enter Album Name To Be Searched:");
+                    String albumname = sc.next();
+                    List<Song> filteralbum = sfo.searchSortByAlbum(mastersonglist,albumname);
+                    sfo.display(filteralbum);
+                    break;
+
+                case 5:
+                    System.out.println("Enter Artist Name To Be Searched:");
+                    String artistname = sc.next();
+                    List<Song> filterartist = sfo.searchSortByArtist(mastersonglist,artistname);
+                    sfo.display(filterartist);
+                    break;
+
+                case 6:
+                    System.out.println("Enter Genre Name To Be Searched:");
+                    String genrename = sc.next();
+                    List<Song> filtergenre = sfo.searchSortByGenre(mastersonglist,genrename);
+                    sfo.display(filtergenre);
+                    break;
+
+                case 7:
+                    System.out.println("1: Enter PodCast Type Name:");
+                    String podcasttype_name = sc.next();
+                    System.out.println("2: Enter Celebrity Name:");
+                    String celebrity_name = sc.next();
+                    System.out.println("3 Enter Narrator Name:");
+                    String narrator_name = sc.next();
+                    System.out.println("4: Enter Podcast Name:");
+                    String podcast_name = sc.next();
+                    System.out.println("5: Enter Episode Name:");
+                    String episode_name = sc.next();
+                    System.out.println("6: Enter Episode Number:");
+                    int episode_number = sc.nextInt();
+                    System.out.println("7: Enter Episode Duration:");
+                    String episode_duration = sc.next();
+                    System.out.println("8: Enter Date In (yyyy-MM-dd) Format OR It Will Take Current Date:");
+                    String dat = sc.next();
+                    java.util.Date date3 = null;
+                    try
+                    {
+                        date3 = new SimpleDateFormat("yyyy-MM-dd").parse(dat);
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println(e);
+                    }
+                    boolean podcasts = pdb.addPodCastEpisode(podcasttype_name,celebrity_name
+                    ,narrator_name,podcast_name
+                    ,episode_name,episode_number
+                    ,episode_duration,date3);
+                    break;
+
+                case 8:
+                    masterpodcastlist = pdb.getAllPodCast();
+                    pfo.display(masterpodcastlist);
+                    break;
+
+                case 9:
+                    System.out.println("Enter Celebrity Name To Search Its PodCast Episode:");
+                    String celebrityname = sc.next();
+                    List<PodCast> filtercelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,celebrityname);
+                    pfo.display(filtercelebrity);
+                    break;
+
+                case 10:
+                    System.out.println("Enter Date In (yyyy-MM-dd) Format To Which PodCast Episode Released ");
+                    String dat2 = sc.next();
+                    java.util.Date dt1 = null;
+                    try
+                    {
+                        dt1 = new SimpleDateFormat("yyyy-MM-dd").parse(dat2);
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println(e);
+                    }
+                    List<PodCast> filterdate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,dt1);
+                    pfo.display(filterdate);
+                    break;
+
+                case 11:
+                    System.out.println("1: Enter PlayList Name:");
+                    String playlist_name = sc.next();
+                    System.out.println("2: Enter Content Duration:");
+                    String content_duration = sc.next();
+                    System.out.println("3 Enter Existing Track Id:");
+                    int track_id = sc.nextInt();
+
+                    boolean songpodcast = dbp.addPlayListContent(playlist_name,content_duration,track_id);
+                    break;
+
+                case 12:
+                    contentlist = dbp.getCombinationOfSongPodCast();
+                    ppfo.display(contentlist);
+                    break;
+
+                case 13:
+                    // get all items of playlist
+                    // create names as string collection, get only 'song1'
+                    // names : Abhang4, teh_daily, web_1
+                    // path = "c:\\songs\\"+ith element" +".wav";
+                    String filepath ="C:\\song1\\";
+                    AudioPlayer ap = new AudioPlayer();
+                    contentlist = dbp.getCombinationOfSongPodCast();
+                    ppfo.display(contentlist);
+                    ap.playAudio(contentlist,filepath,"song1");
+                    break;
+
+                default:
+                    System.out.println("Error In Entering Choice");
+                    break;
+            }
+        }while(choice!=14);
+//
+//
+//
+//
 //        pfo.display(contentlist);
 ////        List<SongPlaylist> songlist = pfo.getAllSongBySongName(contentlist,"song1",
 ////                "katya kaljat ghusli");
 //        //System.out.println("\nFiltered : " + songlist);
 //        List<PodCastPlayList> podlist = pfo.getAllPodCastByPodCastName(contentlist,"song1","web 1");
 //        System.out.println("Filtered Podlist :" +podlist);
-//        PodCastDbOperation pdb = new PodCastDbOperation();
-//        List<PodCast> masterpodcastlist = pdb.getAllPodCast();
-//        PodCastFilterSortOperation pfo = new PodCastFilterSortOperation();
+//
+//
+//
         //pfo.display(masterpodcastlist);
 
         //java.util.Date date = new java.util.Date();
-        String date1 = "2019-07-25";
-        //DateFormat dt = new SimpleDateFormat(date1);
-        //String date2 = dt.format(date);
-//        java.util.Date date = null;
-//        try
-//        {
-//            date = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e);
-//        }
+
 
 //        List<PodCast> searchsortbydate = pfo.searchSortByEpisodeReleaseDate(masterpodcastlist,date);
 //        pfo.display(searchsortbydate);
@@ -69,19 +232,15 @@ public class JukeBox
 //        List<PodCast> searchsortbycelebrity = pfo.searchSortByCelebrityName(masterpodcastlist,"stefen hawkins");
 //        pfo.display(searchsortbycelebrity);
 
-//        long millis = System.currentTimeMillis();
-//        java.sql.Date date4 = new Date(millis);
 
-//        boolean result = pdb.addPodCastEpisode("horror"
-//                ,"soni","shades"
-//                ,"mossaic","web 1"
-//                ,10,"01:30:25",date4,6,7,8,10);
-//        SongDbOperation dbms = new SongDbOperation();
+
 //
-//        SongFilterSortOperation sfo = new SongFilterSortOperation();
 //
+////
+//
+////
 //        List<Song> mastersonglist = dbms.getAllSongs(); // mastersonglist is master data
-        //sfo.display(mastersonglist);
+//        sfo.display(mastersonglist);
 
 //        List<Song> searchsortbyartist = sfo.searchSortByArtist(mastersonglist,"priyadahale");
 //        sfo.display(searchsortbyartist);
@@ -96,9 +255,7 @@ public class JukeBox
 //        sfo.display(searchsortbygenre);
 //
 //
-//        boolean addsong = dbms.addSong("rock","saavan"
-//                ,date4,"bhimsen-joshi","male"
-//                ,"ata kothe dhave man","8:30",5,6,1);
+//
 //*************************************************************************//////////////////////////////////
 //
         //ArrayListSong songs = new ArrayListSong();

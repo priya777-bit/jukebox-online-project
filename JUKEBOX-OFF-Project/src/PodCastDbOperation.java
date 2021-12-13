@@ -230,12 +230,6 @@ public class PodCastDbOperation
 
         try
         {
-            podcasttype_id = getPodCastTypeId(podcasttype_name);
-
-            celebrity_id = getCelebrityId(celebrity_name);
-
-            narrator_id = getNarratorId(narrator_name);
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jukebox","root","root");
@@ -267,14 +261,19 @@ public class PodCastDbOperation
 
     public boolean addPodCastEpisode(String podcasttype_name , String celebrity_name , String narrator_name ,
             String podcast_name , String episode_name
-            , int episode_number , String episode_duration , Date episode_release_date
-            , int podcasttype_id , int celebrity_id , int narrator_id,int podcast_id)
+            , int episode_number , String episode_duration , Date episode_release_date)
     {
         boolean result = false;
 
         try
         {
-            podcast_id = getPodtCastId(podcast_name,podcasttype_name,celebrity_name,
+           int podcasttype_id = getPodCastTypeId(podcasttype_name);
+
+           int celebrity_id = getCelebrityId(celebrity_name);
+
+           int narrator_id = getNarratorId(narrator_name);
+
+           int podcast_id = getPodtCastId(podcast_name,podcasttype_name,celebrity_name,
                     narrator_name,podcasttype_id,celebrity_id,narrator_id);
 
             Class.forName("com.mysql.cj.jdbc.Driver");

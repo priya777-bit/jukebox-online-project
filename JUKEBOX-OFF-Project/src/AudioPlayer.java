@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +12,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer
 {
+    List<String> names;
+    int index=0;
     // to store current position
    long currentFrame;
    Clip clip;
@@ -22,45 +25,56 @@ public class AudioPlayer
     static String filePath;
 
     //Constructor
-    public AudioPlayer(String p) throws UnsupportedAudioFileException,IOException,LineUnavailableException
+    public AudioPlayer()
     {
-        filePath=p;
-        audio = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(audio);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-//        play();
     }
 
-    public void giveFilePath()
+    public void playAudio(List<AddSongPodCast> list,String filePath,String plName)
+            throws UnsupportedAudioFileException,IOException,LineUnavailableException
     {
-        try
-        {
-            filePath = "C:\\songs\\s1.wav";
-           AudioPlayer audioplayer  = new AudioPlayer(filePath);
-           audioplayer.play();
+        try {
+            names = new ArrayList<String>();
+            for (AddSongPodCast aspc : list) {
+                if (aspc.getPlaylist_name().equalsIgnoreCase(plName)) {
+                    if (aspc instanceof SongPlaylist) {
+                        names.add(filePath + ((SongPlaylist)aspc).getSong_name() + ".wav");
+                        System.out.println(((SongPlaylist)aspc).getSong_name());
+                    } else {
+                        names.add(filePath + ((PodCastPlayList) aspc).getEpisode_name() + ".wav");
+                        System.out.println(((PodCastPlayList) aspc).getEpisode_name());
+                    }
+                }
+            }
+            audio = AudioSystem.getAudioInputStream(new File(names.get(index)).getAbsoluteFile());
+            clip = AudioSystem.getClip();
+            clip.open(audio);
+            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+
             Scanner sc = new Scanner(System.in);
 
             while(true)
             {
-                System.out.println("1 : play");
-                System.out.println("2 : next");
-                System.out.println("3 : stop");
+                System.out.println("1 : Play");
+                System.out.println("2 : Jump-To-Specific-Time");
+                System.out.println("3 : Stop");
+                System.out.println("4 : Play-Previous");
+                System.out.println("5 : Play-Next");
 
                 int c = sc.nextInt();
-                audioplayer.gotoChoice(c);
+                gotoChoice(c);
 
                 if(c==3)
                     break;
+
             }
             sc.close();
         }
-        catch(Exception e)
+        catch (ClassCastException c)
         {
-            System.out.println("Error with playing song");
-            e.printStackTrace();
+            System.out.println(c);
         }
     }
+
 
     //work as the user enters choice
     private void gotoChoice(int c) throws UnsupportedAudioFileException,IOException,LineUnavailableException
@@ -72,9 +86,13 @@ public class AudioPlayer
             case 2:System.out.println("Enter time("+0+","+clip.getMicrosecondLength()+")");
             Scanner sc = new Scanner(System.in);
             Long c1 = sc.nextLong();
-            jumpToNext(c1);
+            jumpToSpecificTime(c1);
             break;
             case 3:stop();
+            break;
+            case 4:previous();
+            break;
+            case 5:next();
             break;
 
         }
@@ -87,15 +105,15 @@ public class AudioPlayer
         status="Play";
     }
 
-    public void jumpToNext(long c1) throws UnsupportedAudioFileException,LineUnavailableException,IOException
+    public void jumpToSpecificTime(long c) throws UnsupportedAudioFileException,LineUnavailableException,IOException
     {
-        if(c1>0 && c1<clip.getMicrosecondLength())
+        if(c>0 && c<clip.getMicrosecondLength())
         {
             clip.stop();
             clip.close();
             resetAudioStream();
-            currentFrame=c1;
-            clip.setMicrosecondPosition(c1);
+            currentFrame=c;
+            clip.setMicrosecondPosition(c);
             this.play();
         }
     }
@@ -107,6 +125,40 @@ public class AudioPlayer
         currentFrame=0L;
         clip.stop();
         clip.close();
+    }
+
+    public void next() throws UnsupportedAudioFileException,LineUnavailableException,IOException {
+        int count = 0;
+        try {
+            if (count < names.size()) {
+                clip.stop();
+                audio = AudioSystem.getAudioInputStream(new File(names.get(++index)).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audio);
+                clip.start();
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("There Is No Next Play..");
+        }
+    }
+
+    public void previous() throws UnsupportedAudioFileException,LineUnavailableException,IOException {
+        int count = 0;
+        try {
+            if (count < names.size()) {
+                clip.stop();
+                audio = AudioSystem.getAudioInputStream(new File(names.get(--index)).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audio);
+                clip.start();
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("There Is No Previous Play..");
+        }
     }
 
     public void resetAudioStream() throws UnsupportedAudioFileException,LineUnavailableException,IOException

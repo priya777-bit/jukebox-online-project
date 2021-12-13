@@ -183,19 +183,18 @@ public class SongDbOperation
     }
 
     public boolean addSong(String genre_name,String album_name,Date album_release_date
-            ,String artist_name,String artist_gender,String song_name,String song_duration
-            ,int artist_id,int album_id,int genre_id)
+            ,String artist_name,String artist_gender,String song_name,String song_duration)
     {
         boolean result = false;
 
         try
         {
 
-            artist_id = getArtistId(artist_name,artist_gender);
+            int artist_id = getArtistId(artist_name,artist_gender);
 
-            album_id = getAlbumId(album_name,new java.sql.Date(album_release_date.getTime()));
+            int album_id = getAlbumId(album_name,new java.sql.Date(album_release_date.getTime()));
 
-            genre_id = getGenreId(genre_name);
+            int genre_id = getGenreId(genre_name);
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered..");

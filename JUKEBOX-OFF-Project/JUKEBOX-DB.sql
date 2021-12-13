@@ -48,7 +48,7 @@ create table song
 insert into song(song_name,song_duration,genre_id,album_id,artist_id) 
 values('labb par aye geet suhane','9:00',9,	9,72);
 
-alter table song auto_increment = 1000;
+alter table song auto_increment = 10000;
 
 -- Show Song Table ..
 
@@ -241,8 +241,8 @@ drop foreign key song_id;
 
 -- Inserting Into PlayListContent ..
 
-insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',1,10);
-insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',1,1);
+insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',4,10000);
+insert into playlistcontent (content_duration,playlist_id,track_id) values ('01:20:22',4,10001);
 
 select * from song;
 select * from podcastepisode;
@@ -268,5 +268,13 @@ left outer join song s on pl.track_id=s.song_id
 left outer join podcastepisode pe on pl.track_id=pe.podcast_episode_id;
 
 select * from p_play;
+select * from playlistcontent;
 
 drop view p_play;
+
+select * from playlist;
+select * from playlistcontent;
+select * from song;
+select * from podcastepisode;
+
+select * from p_play;
